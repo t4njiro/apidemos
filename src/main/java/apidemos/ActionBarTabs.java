@@ -18,7 +18,7 @@ public class ActionBarTabs extends ApiDemos {
     }
 
     public void disableToggleTabMode(){
-        if(findElementLocator(TabTextView).isDisplayed()){
+        if(isDisplayed(TabTextView)){
             toggleTabMode();
         }
         else
@@ -47,12 +47,13 @@ public class ActionBarTabs extends ApiDemos {
         By tab = By.xpath("/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]" +
                 "/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.app.ActionBar.Tab["
                 +lastTab+"]/android.widget.TextView");
-        try{
+        return !isDisplayed(tab);
+        /*try{
             return !findElementLocator(tab).isDisplayed();
         }
         catch (NoSuchElementException e){
             return true;
-        }
+        }*/
     }
 
     public void toggleTabMode(){

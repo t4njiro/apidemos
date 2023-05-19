@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -61,6 +62,18 @@ public class ApiDemos
 
     public void sendKeysTo(By elementLocator, String key){
         findElementLocator(elementLocator).sendKeys(key);
+    }
+
+    public boolean isDisplayed(By elementLocator){
+        try {
+            WebElement element = findElementLocator(elementLocator);
+            return element.isDisplayed();
+        }
+        catch (NoSuchElementException e){
+            return false;
+        }
+
+
     }
 
 }

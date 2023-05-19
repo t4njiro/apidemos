@@ -138,6 +138,13 @@ public class Scenarios extends AppTest {
         apiDemos.clickElementLocator(apiDemos.AppMenu);
         apiDemos.clickElementLocator(apiDemos.FragmentMenu);
         apiDemos.clickElementLocator(apiDemos.HideAndShowMenu);
+
+        //Checks if there are two hide buttons & text boxes
+        HideAndShow hideAndShow = new HideAndShow(appiumDriver);
+        Assertions.assertTrue(hideAndShow.isDisplayed(hideAndShow.UpperHideButton));
+        Assertions.assertTrue(hideAndShow.isDisplayed(hideAndShow.LowerHideButton));
+        Assertions.assertTrue(hideAndShow.isDisplayed(hideAndShow.UpperTextBox));
+        Assertions.assertTrue(hideAndShow.isDisplayed(hideAndShow.LowerTextBox));
     }
 
 }
