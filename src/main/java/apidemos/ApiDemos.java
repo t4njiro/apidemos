@@ -1,17 +1,19 @@
 package apidemos;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
 public class ApiDemos
 {
-    public AppiumDriver appiumDriver;
+    public AndroidDriver appiumDriver;
 
     By AppMenu = By.xpath("/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]" +
             "/android.widget.ListView/android.widget.TextView[3]");
@@ -23,15 +25,16 @@ public class ApiDemos
             "FrameLayout[2]/android.widget.ListView/android.widget.TextView[2]");
     By CustomTitleMenu = By.xpath("/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget." +
             "FrameLayout[2]/android.widget.ListView/android.widget.TextView[3]");
-    By openApp = By.xpath("(//android.widget.TextView[@content-desc=\"API Demos\"])[1]");
     By AlertDialogsMenu = By.xpath("/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget." +
             "FrameLayout[2]/android.widget.ListView/android.widget.TextView[4]");
     By ListDialog = By.id("com.hmh.api:id/select_button");
     By FragmentMenu = By.xpath("//android.widget.ListView/android.widget.TextView[6]");
     By ContextMenu = By.xpath("//android.widget.ListView/android.widget.TextView[3]");
     By HideAndShowMenu = By.xpath("//android.widget.ListView/android.widget.TextView[7]");
+    By NotificationMenu = By.xpath("//android.widget.ListView/android.widget.TextView[10]");
+    By IncomingMessageMenu = By.xpath("//android.widget.ListView/android.widget.TextView[1]");
 
-    public ApiDemos(AppiumDriver appiumDriver){
+    public ApiDemos(AndroidDriver appiumDriver){
         this.appiumDriver = appiumDriver;
     }
 
@@ -69,7 +72,10 @@ public class ApiDemos
             WebElement element = findElementLocator(elementLocator);
             return element.isDisplayed();
         }
-        catch (NoSuchElementException e){
+        catch (NoSuchElementException noSuchElementException){
+            return false;
+        }
+        catch (StaleElementReferenceException staleElementReferenceException){
             return false;
         }
 

@@ -9,12 +9,13 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class AppTest
 {
-    public static AppiumDriver appiumDriver;
+    public static AndroidDriver appiumDriver;
 
     @BeforeAll
     static void beforeTest() {
@@ -41,6 +42,19 @@ public class AppTest
     static void tearDown(){
         //if(appiumDriver != null)
             //appiumDriver.quit();
+    }
+
+    public void clearCacheWithoutDeleting() throws IOException, InterruptedException {
+        Runtime.getRuntime().exec("adb shell pm clear com.hmh.api");
+        Thread.sleep(5000);
+        Runtime.getRuntime().exec("adb shell am start -n com.hmh.api/com.hmh.api.ApiDemos");
+        Thread.sleep(5000);
+    }
+    public void restartApp() throws IOException, InterruptedException {
+        Runtime.getRuntime().exec("adb shell am force-stop com.hmh.api");
+        Thread.sleep(2000);
+        Runtime.getRuntime().exec("adb shell am start -n com.hmh.api/com.hmh.api.ApiDemos");
+        Thread.sleep(2000);
     }
 
 }

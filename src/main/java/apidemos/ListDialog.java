@@ -1,6 +1,7 @@
 package apidemos;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -12,7 +13,7 @@ public class ListDialog extends ApiDemos {
     By SelectedElement;
     By AlertMessage = By.id("android:id/message");
 
-    public ListDialog(AppiumDriver appiumDriver) {
+    public ListDialog(AndroidDriver appiumDriver) {
         super(appiumDriver);
     }
 

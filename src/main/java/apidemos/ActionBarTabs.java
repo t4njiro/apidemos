@@ -1,6 +1,7 @@
 package apidemos;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -13,7 +14,7 @@ public class ActionBarTabs extends ApiDemos {
     By RemoveAllTabsButton = By.id("com.hmh.api:id/btn_remove_all_tabs");
     By ActionBarTabList = By.className("android.app.ActionBar$Tab");
 
-    public ActionBarTabs(AppiumDriver appiumDriver) {
+    public ActionBarTabs(AndroidDriver appiumDriver) {
         super(appiumDriver);
     }
 
@@ -48,12 +49,6 @@ public class ActionBarTabs extends ApiDemos {
                 "/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.app.ActionBar.Tab["
                 +lastTab+"]/android.widget.TextView");
         return !isDisplayed(tab);
-        /*try{
-            return !findElementLocator(tab).isDisplayed();
-        }
-        catch (NoSuchElementException e){
-            return true;
-        }*/
     }
 
     public void toggleTabMode(){
