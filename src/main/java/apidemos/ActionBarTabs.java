@@ -1,13 +1,11 @@
 package apidemos;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 
 public class ActionBarTabs extends ApiDemos {
 
-    By TabTextView = By.className("android.widget.TextView");
+    By TabModeText = By.xpath("//android.widget.TextView[contains(@text, 'App/Action Bar/Action Bar Tabs')]");
     By AddNewTabButton = By.id("com.hmh.api:id/btn_add_tab");
     By RemoveLastTabButton = By.id("com.hmh.api:id/btn_remove_tab");
     By ToggleTabModeButton = By.id("com.hmh.api:id/btn_toggle_tabs");
@@ -19,11 +17,9 @@ public class ActionBarTabs extends ApiDemos {
     }
 
     public void disableToggleTabMode(){
-        if(isDisplayed(TabTextView)){
+        if(isDisplayed(TabModeText)){
             toggleTabMode();
         }
-        else
-            return;
     }
 
     public void addNewTab(){
@@ -45,9 +41,7 @@ public class ActionBarTabs extends ApiDemos {
     }
 
     public boolean isLastTabDeleted(int lastTab){
-        By tab = By.xpath("/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]" +
-                "/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.app.ActionBar.Tab["
-                +lastTab+"]/android.widget.TextView");
+        By tab = By.xpath("//android.app.ActionBar.Tab[" + lastTab + "]");
         return !isDisplayed(tab);
     }
 

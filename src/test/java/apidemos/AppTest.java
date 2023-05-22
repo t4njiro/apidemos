@@ -1,6 +1,5 @@
 package apidemos;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -16,6 +15,8 @@ import java.net.URL;
 public class AppTest
 {
     public static AndroidDriver appiumDriver;
+    public static String appPackage = "com.hmh.api";
+    public static String appActivity = ".ApiDemos";
 
     @BeforeAll
     static void beforeTest() {
@@ -25,8 +26,8 @@ public class AppTest
             desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
             desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Pixel 4 API 27");
             desiredCapabilities.setCapability(MobileCapabilityType.UDID, "emulator-5554");
-            desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.hmh.api");
-            desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, "com.hmh.api.ApiDemos");
+            desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, appPackage);
+            desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, appPackage + appActivity);
             desiredCapabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "10000");
             desiredCapabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, "true");
             desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, "true");
@@ -40,20 +41,24 @@ public class AppTest
 
     @AfterAll
     static void tearDown(){
-        //if(appiumDriver != null)
-            //appiumDriver.quit();
+        if(appiumDriver != null)
+            appiumDriver.quit();
+    }
+
+    public void openApp() throws IOException {
+        Runtime.getRuntime().exec("adb shell am start -n " + appPackage + "/" + appPackage + appActivity);
     }
 
     public void clearCacheWithoutDeleting() throws IOException, InterruptedException {
-        Runtime.getRuntime().exec("adb shell pm clear com.hmh.api");
+        Runtime.getRuntime().exec("adb shell pm clear " + appPackage);
         Thread.sleep(5000);
-        Runtime.getRuntime().exec("adb shell am start -n com.hmh.api/com.hmh.api.ApiDemos");
+        openApp();
         Thread.sleep(5000);
     }
     public void restartApp() throws IOException, InterruptedException {
-        Runtime.getRuntime().exec("adb shell am force-stop com.hmh.api");
+        Runtime.getRuntime().exec("adb shell am force-stop " + appPackage);
         Thread.sleep(2000);
-        Runtime.getRuntime().exec("adb shell am start -n com.hmh.api/com.hmh.api.ApiDemos");
+        openApp();
         Thread.sleep(2000);
     }
 
